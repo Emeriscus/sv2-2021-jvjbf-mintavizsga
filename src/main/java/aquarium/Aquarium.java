@@ -11,7 +11,7 @@ public class Aquarium {
 
     public void addFish(Fish fish) {
 
-        if (actualcapacity == 20) {
+        if (actualcapacity == CAPACITY) {
             throw new IllegalStateException("Can not add fish because there is no more space.");
         }
         fishes.add(fish);

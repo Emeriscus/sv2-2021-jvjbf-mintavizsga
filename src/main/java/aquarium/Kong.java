@@ -1,6 +1,6 @@
 package aquarium;
 
-public class Kong extends Fish{
+public class Kong extends Fish {
 
     public Kong(String name, int weight, String color) {
         super(name, weight, color);
@@ -13,6 +13,6 @@ public class Kong extends Fish{
 
     @Override
     public void feed() {
-        setWeight(getWeight()+2);
+        setWeight(getWeight() + 2);
     }
 }

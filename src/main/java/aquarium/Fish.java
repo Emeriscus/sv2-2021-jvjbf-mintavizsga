@@ -3,7 +3,7 @@ package aquarium;
 public abstract class Fish {
 
     private String name;
-    private int weight;
+    protected int weight;     // ha ez protected, akkor nem kell setter...
     private String color;
 
     public Fish(String name, int weight, String color) {
