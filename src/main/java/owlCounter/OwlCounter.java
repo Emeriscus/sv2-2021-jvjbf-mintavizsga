@@ -15,8 +15,7 @@ public class OwlCounter {
 
     public List<String> readFromFile(Path path) {
         try {
-            List<String> lines = readAllLines(path);
-            return lines;
+            return readAllLines(path);
         } catch (IOException ioe) {
             throw new IllegalStateException("Can not read file.", ioe);
         }
@@ -34,15 +33,22 @@ public class OwlCounter {
         throw new IllegalArgumentException("No such county in Hungary!");
     }
 
+//    public int getNumberOfAllOwls() {
+//
+//        List<String> lines = readFromFile(path);
+//        int sum = 0;
+//
+//        for (String actual : lines) {
+//            sum += getNumberOfOwlsFromLines(actual);
+//        }
+//        return sum;
+//    }
+
     public int getNumberOfAllOwls() {
-
         List<String> lines = readFromFile(path);
-        int sum = 0;
-
-        for (String actual : lines) {
-            sum += getNumberOfOwlsFromLines(actual);
-        }
-        return sum;
+        return lines.stream()
+                .mapToInt(s -> getNumberOfOwlsFromLines(s))
+                .sum();
     }
 
     private String getCountyFromLines(String line) {

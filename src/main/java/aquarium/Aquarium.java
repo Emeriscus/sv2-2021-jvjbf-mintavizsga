@@ -1,6 +1,7 @@
 package aquarium;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Aquarium {
@@ -20,64 +21,88 @@ public class Aquarium {
 
     public void feed() {
 
-        for (Fish actual : fishes) {
-            actual.feed();
-        }
+//        for (Fish actual : fishes) {
+//            actual.feed();
+//        }
+
+        fishes.stream().forEach(fish -> fish.feed());
+
     }
 
     public void removeFish(int maxWeight) {
 
-        List<Fish> result = new ArrayList<>();
+//        List<Fish> result = new ArrayList<>();
+//
+//        for (Fish actual : fishes) {
+//            if (actual.getWeight() <= maxWeight) {
+//                result.add(actual);
+//            }
+//        }
+//        fishes = result;
 
-        for (Fish actual : fishes) {
-            if (actual.getWeight() <= maxWeight) {
-                result.add(actual);
-            }
-        }
-        fishes = result;
+        fishes = fishes.stream()
+                .filter(fish -> fish.getWeight() <= maxWeight)
+                .toList();
     }
 
     public List<String> getStatus() {
 
-        List<String> result = new ArrayList<>();
+//        List<String> result = new ArrayList<>();
+//
+//        for (Fish actual : fishes) {
+//            result.add(actual.getStatus());
+//        }
+//        return result;
 
-        for (Fish actual : fishes) {
-            result.add(actual.getStatus());
-        }
-        return result;
+        return fishes.stream()
+                .map(Fish::getStatus)
+                .toList();
     }
 
     public int getNumberOfFishWithMemoryLoss() {
 
-        int result = 0;
-        for (Fish actual : fishes) {
-            if (actual.hasMemoryLoss())
-                result++;
-        }
-        return result;
+//        int result = 0;
+//        for (Fish actual : fishes) {
+//            if (actual.hasMemoryLoss())
+//                result++;
+//        }
+//        return result;
+
+        return (int) fishes.stream()
+                .filter(fish -> fish.hasMemoryLoss())
+                .count();
     }
 
     public boolean isThereFishWithGivenColor(String color) {
 
-        for (Fish actual : fishes) {
-            if (actual.getColor().equals(color)) {
-                return true;
-            }
-        }
-        return false;
+//        for (Fish actual : fishes) {
+//            if (actual.getColor().equals(color)) {
+//                return true;
+//            }
+//        }
+//        return false;
+
+        return fishes.stream()
+                .anyMatch(fish -> color.equals(fish.getColor()));
     }
 
     public Fish getSmallestFish() {
 
-        int minweight = Integer.MAX_VALUE;
-        Fish result = null;
+//        int minweight = Integer.MAX_VALUE;
+//        Fish result = null;
+//
+//        for (Fish actual : fishes) {
+//            if (actual.getWeight() < minweight) {
+//                minweight = actual.getWeight();
+//                result = actual;
+//            }
+//        }
+//        return result;
 
-        for (Fish actual : fishes) {
-            if (actual.getWeight() < minweight) {
-                minweight = actual.getWeight();
-                result = actual;
-            }
-        }
-        return result;
+        return fishes.stream()
+//                .min((f1, f2)->f1.getWeight()-f2.getWeight())
+                // vagy:
+                .min(Comparator.comparing(Fish::getWeight))
+                .orElseThrow();
     }
 }

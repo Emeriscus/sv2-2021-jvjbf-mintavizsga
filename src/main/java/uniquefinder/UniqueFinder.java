@@ -5,7 +5,6 @@ import java.util.List;
 
 public class UniqueFinder {
 
-
     public List<Character> getUniqueChars(String word) {
 
         if (word == null) {
